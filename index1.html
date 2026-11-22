@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="kr" data-page="index1">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시제1호</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="prev-button" type="button" onclick="location.href='intro.html'">Prev</button>
+    <button id="nextButton" class="next-button" onclick="location.href='index4.html'">Next</button>
+  <div class="title">Click to increase speed</div>
+  <br>
+  <br>
+  <div class="container" onclick="increaseAnimationSpeed()">
+    <!-- 왼쪽 블록 -->
+    <div class="block left-block">
+      <div class="line">
+        <span class="fixed-word">13인의</span>
+        <span class="moving-word" style="--index: 1;">아해가</span>
+        <span class="moving-word" style="--index: 2;">도로로</span>
+        <span class="moving-word" style="--index: 3;">질주하오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">(길은</span>
+        <span class="moving-word" style="--index: 1;">막다른</span>
+        <span class="moving-word" style="--index: 2;">골목이</span>
+        <span class="moving-word" style="--index: 3;">적당하오)</span>
+      </div>
+      <br>
+      <div class="line">
+        <span class="fixed-word">제1의</span>
+        <span class="moving-word" style="--index: 1;">아해가</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제2의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제3의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제4의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제5의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제6의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제7의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제8의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제9의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+    </div>
+  
+    <!-- 오른쪽 블록 -->
+    <div class="block right-block">
+      <div class="line">
+        <span class="fixed-word">제10의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제11의</span>
+        <span class="moving-word" style="--index: 1;">아해가</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제12의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">제13의</span>
+        <span class="moving-word" style="--index: 1;">아해도</span>
+        <span class="moving-word" style="--index: 2;">무섭다고</span>
+        <span class="moving-word" style="--index: 3;">그리오</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">13인의</span>
+        <span class="moving-word" style="--index: 1;">아해는</span>
+        <span class="moving-word" style="--index: 2;">무서운</span>
+        <span class="moving-word" style="--index: 3;">아해와</span>
+      </div>
+      <div class="line">
+        <span class="moving-word" style="--index: 4;">무서워하는</span>
+        <span class="moving-word" style="--index: 5;">아해와</span>
+        <span class="moving-word" style="--index: 6;">그렇게</span>
+        <span class="moving-word" style="--index: 7;">뿐이</span>
+        <span class="moving-word" style="--index: 8;">모였소</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">(다른</span>
+        <span class="moving-word" style="--index: 2;">사정은</span>
+        <span class="moving-word" style="--index: 3;">없는</span>
+        <span class="moving-word" style="--index: 4;">것이</span>
+        <span class="moving-word" style="--index: 5;">차라리</span>
+        <span class="moving-word" style="--index: 6;">나았소)</span>
+      </div>
+      <br>
+      <div class="line">
+        <span class="fixed-word">그중에</span>
+        <span class="moving-word" style="--index: 2;">1인의</span>
+        <span class="moving-word" style="--index: 3;">아해가</span>
+        <span class="moving-word" style="--index: 4;">무서운</span>
+        <span class="moving-word" style="--index: 5;">아해라도</span>
+        <span class="moving-word" style="--index: 6;">좋소.</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">그중에</span>
+        <span class="moving-word" style="--index: 2;">2인의</span>
+        <span class="moving-word" style="--index: 3;">아해가</span>
+        <span class="moving-word" style="--index: 4;">무서운</span>
+        <span class="moving-word" style="--index: 5;">아해라도</span>
+        <span class="moving-word" style="--index: 6;">좋소.</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">(길은</span>
+        <span class="moving-word animate" style="--index: 1;">뚫린</span>
+        <span class="moving-word animate" style="--index: 2;">골목이라도</span>
+        <span class="moving-word animate" style="--index: 3;">적당하오.)</span>
+      </div>
+      <div class="line">
+        <span class="fixed-word">13인의</span>
+        <span class="moving-word animate" style="--index: 1;">아해가</span>
+        <span class="moving-word animate" style="--index: 2;">도로로</span>
+        <span class="moving-word animate" style="--index: 3;">질주하지</span>
+        <span class="moving-word animate" style="--index: 4;">아니하여도</span>
+        <span class="moving-word animate" style="--index: 5;">좋소.</span>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+    let animationSpeed = 4; // 초기 애니메이션 속도 설정
+    
+    function startAnimation() {
+      const movingWords = document.querySelectorAll('.moving-word');
+      movingWords.forEach(word => {
+        word.style.animation = `moveWords ${animationSpeed}s ease-in-out infinite`;
+        word.style.animationDelay = `calc(var(--index) * 0.3s)`;
+      });
+    }
+
+    function increaseAnimationSpeed() {
+      // 애니메이션 속도를 0.6초씩 줄이며, 최소 0.2초까지 조정
+      animationSpeed = Math.max(0.2, animationSpeed - 0.6);
+      startAnimation();
+    }
+
+    document.addEventListener("DOMContentLoaded", startAnimation);
+
+    // 키보드 이동: 왼쪽 ← intro.html / 오른쪽 → index4.html
+    // 버튼 클릭과 시어 애니메이션은 그대로 유지합니다.
+    document.addEventListener('keydown', function (event) {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+      const key = event.key || event.code;
+      // 스페이스바를 누를 때도 클릭과 동일하게 애니메이션 속도를 높입니다.
+      if (key === ' ' || key === 'Spacebar' || event.code === 'Space') {
+        event.preventDefault();
+        if (!event.repeat) increaseAnimationSpeed();
+        return;
+      }
+      let destination = null;
+      if (key === 'ArrowLeft' || key === 'Left') {
+        destination = 'intro.html';
+      } else if (key === 'ArrowRight' || key === 'Right') {
+        destination = 'index4.html';
+      }
+
+      if (!destination) return;
+      event.preventDefault();
+      window.location.assign(new URL(destination, window.location.href).href);
+    }, { capture: true });
+  </script>
+
+</body>
+</html>

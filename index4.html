@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko" data-page="index4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시제4호</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grid-container" id="grid-container">
+        <div class="number">1</div>
+        <div class="number">2</div>
+        <div class="number">0</div>
+        <div class="number">1</div>
+    </div>
+    
+    <button class="prev-button" type="button" onclick="location.href='index1.html'">Prev</button>
+    <button class="go-to-first-button" onclick="goToFirstPage()">Next</button>
+    <script>
+        let gridSize = 2; // 초기 그리드 크기
+        let totalCells = gridSize * gridSize;
+        const baseSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+        const colors = ["red", "blue", "yellow"];
+
+        function getNumberForPosition(row, col) {
+            let rowStartIndex = row % baseSequence.length;
+            let finalIndex = (rowStartIndex + col) % baseSequence.length;
+            return baseSequence[finalIndex];
+        }
+
+        function addNewCells(startIndex, endIndex) {
+            const container = document.getElementById('grid-container');
+            const randomCircleIndex = Math.floor(Math.random() * (endIndex - startIndex));
+
+            for (let i = startIndex; i < endIndex; i++) {
+                const numberDiv = document.createElement('div');
+                numberDiv.classList.add('number');
+                const row = Math.floor(i / gridSize);
+                const col = i % gridSize;
+                numberDiv.innerText = getNumberForPosition(row, col);
+                numberDiv.onclick = expandGrid;
+
+                // 7번째 셀마다 색상 적용
+                if ((i + 1) % 7 === 0) {
+                    const colorClass = colors[((i + 1) / 7 - 1) % colors.length];
+                    numberDiv.classList.add(colorClass);
+                }
+
+                // 랜덤한 하나의 박스를 동그라미로 변경
+                if (i - startIndex === randomCircleIndex) {
+                    numberDiv.classList.add('circle');
+                }
+
+                container.appendChild(numberDiv);
+            }
+        }
+
+        function expandGrid() {
+            const container = document.getElementById('grid-container');
+            gridSize += 2;
+            container.style.gridTemplateColumns = `repeat(${gridSize}, 50px)`;
+            container.style.gridTemplateRows = `repeat(${gridSize}, 50px)`;
+
+            const cells = container.children;
+            for (let i = 0; i < cells.length; i++) {
+                const row = Math.floor(i / gridSize);
+                const col = i % gridSize;
+                cells[i].innerText = getNumberForPosition(row, col);
+            }
+
+            const newTotalCells = gridSize * gridSize;
+            addNewCells(totalCells, newTotalCells);
+            totalCells = newTotalCells;
+        }
+
+        function goToFirstPage() {
+            location.href = 'credit.html';
+        }
+
+        const initialCells = document.querySelectorAll('.number');
+        const randomCircleIndex = Math.floor(Math.random() * initialCells.length);
+
+        initialCells.forEach((cell, index) => {
+            const row = Math.floor(index / gridSize);
+            const col = index % gridSize;
+            cell.innerText = getNumberForPosition(row, col);
+            cell.onclick = expandGrid;
+
+            // 7번째 셀마다 색상 적용
+            if ((index + 1) % 7 === 0) {
+                const colorClass = colors[((index + 1) / 7 - 1) % colors.length];
+                cell.classList.add(colorClass);
+            }
+
+            if (index === randomCircleIndex) {
+                cell.classList.add('circle');
+            }
+        });
+    </script>
+
+    <script>
+        // 왼쪽 방향키: 이전(index1.html), 오른쪽 방향키: 다음(credit.html)
+        document.addEventListener('keydown', (event) => {
+            if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+            // 스페이스바도 숫자 칸 클릭과 동일하게 그리드를 확장합니다.
+            if (event.code === 'Space' || event.key === ' ') {
+                event.preventDefault();
+                if (!event.repeat) expandGrid();
+                return;
+            }
+            const destination = event.key === 'ArrowLeft' ? 'index1.html'
+                              : event.key === 'ArrowRight' ? 'credit.html'
+                              : null;
+            if (!destination) return;
+            event.preventDefault();
+            window.location.href = destination;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko" data-page="index">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crow's Eye View</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="ground"></div>
+
+    <img src="arrow.png" alt="Arrow Icon" class="arrow">
+    <img id="character" class="character" src="crow2.png" alt="Character">
+    
+    <button id="nextButton" class="next-button" onclick="restart()">Go to Start</button>
+    
+    <div class="crow-eye-view">Ogamdo 烏瞰圖: Crow's eye view</div>
+
+    <script>
+        const character = document.getElementById("character");
+        const arrow = document.querySelector(".arrow");
+        const nextButton = document.getElementById("nextButton");
+        const normalImages = ["crow2.png", "crow3.png"];
+        const invertedImages = ["crow2-inverted.png", "crow3-inverted.png"];
+
+        let characterPositionX = 50;
+        let characterPositionY = window.innerHeight / 2;
+        let imageIndex = 0;
+        let facing = 1;
+        let hasReachedEnd = false;
+        let isFinishing = false;
+
+        function updateCharacterImage() {
+            imageIndex = imageIndex === 0 ? 1 : 0;
+            character.src = normalImages[imageIndex];
+        }
+
+        function positionCharacter() {
+            character.style.left = characterPositionX + "px";
+            character.style.top = characterPositionY + "px";
+            character.style.transform = `translateY(-50%) scaleX(${facing})`;
+        }
+
+        function maxX() {
+            return Math.max(0, window.innerWidth - character.offsetWidth);
+        }
+
+        function finishFlight() {
+            if (hasReachedEnd) return;
+            hasReachedEnd = true;
+            document.documentElement.classList.add("is-inverted");
+            character.src = invertedImages[imageIndex];
+            arrow.src = "arrow-inverted.png";
+            nextButton.style.display = "block";
+        }
+
+        function beginPixelInversion() {
+            const layer = document.createElement("div");
+            layer.className = "inversion-layer";
+            layer.setAttribute("aria-hidden", "true");
+
+            const backgroundCopy = document.querySelector(".background").cloneNode(true);
+            const groundCopy = document.querySelector(".ground").cloneNode(true);
+            const arrowCopy = arrow.cloneNode(true);
+            arrowCopy.src = "arrow-inverted.png";
+            const characterCopy = character.cloneNode(true);
+            characterCopy.removeAttribute("id");
+            characterCopy.src = invertedImages[imageIndex];
+            const titleCopy = document.querySelector(".crow-eye-view").cloneNode(true);
+            layer.append(backgroundCopy, groundCopy, arrowCopy, characterCopy, titleCopy);
+            document.body.appendChild(layer);
+
+            const blockSize = 32;
+            const duration = 3200;
+            const tickInterval = 105;
+            const columns = Math.ceil(window.innerWidth / blockSize);
+            const rows = Math.ceil(window.innerHeight / blockSize);
+            const startedAt = performance.now();
+            let lastTick = -1;
+
+            function paintSteppedEdge(step) {
+                const revealedRows = Math.floor((step * tickInterval / duration) * (rows + 2));
+                const edges = [];
+                for (let col = 0; col < columns; col++) {
+                    // 직선이 아닌 고르지 않은 픽셀 계단: 가로 방향은 그대로, 세로로 전개.
+                    const offset = ((col * 17 + step * 7) % 5) - 2;
+                    const visibleRows = Math.max(0, Math.min(rows, revealedRows + offset));
+                    edges.push(Math.max(0, window.innerHeight - visibleRows * blockSize));
+                }
+
+                const points = [`0px 100%`, `0px ${edges[0]}px`];
+                for (let col = 0; col < columns; col++) {
+                    const right = Math.min(window.innerWidth, (col + 1) * blockSize);
+                    points.push(`${right}px ${edges[col]}px`);
+                    if (col + 1 < columns && edges[col + 1] !== edges[col]) {
+                        points.push(`${right}px ${edges[col + 1]}px`);
+                    }
+                }
+                points.push(`${window.innerWidth}px 100%`);
+                const shape = `polygon(${points.join(", ")})`;
+                layer.style.clipPath = shape;
+                layer.style.webkitClipPath = shape;
+            }
+
+            function animateInversion(now) {
+                const elapsed = now - startedAt;
+                if (elapsed >= duration) {
+                    finishFlight();
+                    layer.remove();
+                    return;
+                }
+                const tick = Math.floor(elapsed / tickInterval);
+                if (tick !== lastTick) {
+                    lastTick = tick;
+                    paintSteppedEdge(tick);
+                }
+                requestAnimationFrame(animateInversion);
+            }
+
+            layer.style.clipPath = "inset(100% 0 0 0)";
+            layer.style.webkitClipPath = "inset(100% 0 0 0)";
+            requestAnimationFrame(animateInversion);
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (hasReachedEnd && event.key === "Enter") {
+                event.preventDefault();
+                restart();
+                return;
+            }
+
+            if (hasReachedEnd || isFinishing || !["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(event.key)) {
+                return;
+            }
+            event.preventDefault();
+
+            if (event.key === "ArrowRight" && characterPositionX >= maxX()) {
+                if (!event.repeat) {
+                    isFinishing = true;
+                    setTimeout(beginPixelInversion, 1000);
+                }
+                return;
+            }
+
+            if (event.key === "ArrowRight") {
+                facing = 1;
+                characterPositionX = Math.min(maxX(), characterPositionX + 40);
+                updateCharacterImage();
+            } else if (event.key === "ArrowLeft") {
+                facing = -1;
+                characterPositionX = Math.max(0, characterPositionX - 40);
+                updateCharacterImage();
+            } else if (event.key === "ArrowUp") {
+                characterPositionY -= 40;
+            } else if (event.key === "ArrowDown") {
+                characterPositionY += 40;
+            }
+
+            const halfHeight = character.offsetHeight / 2;
+            const minY = halfHeight;
+            const maxY = Math.max(minY, window.innerHeight - 50 - halfHeight);
+            characterPositionY = Math.min(maxY, Math.max(minY, characterPositionY));
+            positionCharacter();
+
+        });
+
+        window.addEventListener("resize", () => {
+            characterPositionX = Math.min(characterPositionX, maxX());
+            const halfHeight = character.offsetHeight / 2;
+            characterPositionY = Math.min(
+                Math.max(halfHeight, window.innerHeight - 50 - halfHeight),
+                Math.max(halfHeight, characterPositionY)
+            );
+            positionCharacter();
+        });
+
+        function restart() {
+            window.location.href = "intro.html";
+        }
+    </script>
+</body>
+</html>

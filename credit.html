@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" data-page="credit">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책임 의사 이상</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 고정 버튼 -->
+    <button class="button fixed-button" id="goToFirst">Go to First</button>
+
+    <!-- 크레딧 본문 -->
+    <div class="credit-section">
+    <p><strong>Credits</strong></p>
+
+    <br><p><strong>오감도는 세상을 진단하는 도구</strong></p>
+
+    <p>
+        <br><strong>2024</strong><br>
+        Web Interaction Design<br>
+        SeoulTech, Visual Communication Design<br>
+        Originally created as a course project
+    </p>
+
+    <p>
+        <strong>2026</strong><br>
+        Revisited & Reworked
+    </p>
+
+    <p>
+        <strong>Design & Development</strong><br>
+        Soyong Kim<br>
+        @s.oyongkim<br>
+        suesoyongkim.net
+    </p>
+</div>
+
+    <script>
+        document.getElementById('goToFirst').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+
+        // ← 이전 페이지(index4.html)로 이동
+        document.addEventListener('keydown', function(event) {
+            if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.repeat) return;
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                window.location.href = 'index4.html';
+            }
+        });
+    </script>
+</body>
+</html>
